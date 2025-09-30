@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lizbeth Inzunza</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --cherry-red: #8B0000;
+            --deep-red: #5c0a0a;
+            --crimson: #DC143C;
+            --wine: #722F37;
+            --dark: #0D0208;
+            --cream: #F4E8E8;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: var(--dark);
+            color: var(--cream);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Film grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 0, 0, 0.03) 2px, rgba(139, 0, 0, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139, 0, 0, 0.03) 2px, rgba(139, 0, 0, 0.03) 4px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 9999;
+            animation: grain 0.2s steps(10) infinite;
+        }
+        
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            30% { transform: translate(3%, -15%); }
+            50% { transform: translate(12%, 9%); }
+            70% { transform: translate(9%, 4%); }
+            90% { transform: translate(-1%, 7%); }
+        }
+        
+        /* Atmospheric background */
+        .atmosphere {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 0, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(114, 47, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(220, 20, 60, 0.1) 0%, transparent 60%);
+            animation: atmosphereMove 20s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        @keyframes atmosphereMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+        }
+        
+        /* Cherry petals */
+        .cherry-petal {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, var(--crimson), var(--cherry-red));
+            border-radius: 50% 50% 0 50%;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+            animation: fallPetal linear infinite;
+            filter: blur(0.5px);
+        }
+        
+        @keyframes fallPetal {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Cinematic Header */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, 
+                rgba(13, 2, 8, 0.9) 0%, 
+                rgba(92, 10, 10, 0.3) 50%, 
+                rgba(13, 2, 8, 0.9) 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.2), transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.6;
+            }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cherry-icon-large {
+            font-size: 6em;
+            margin-bottom: 30px;
+            display: inline-block;
+            animation: cherryFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(220, 20, 60, 0.8));
+        }
+        
+        @keyframes cherryFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% { 
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+        
+        h1 {
+            font-family: 'Italiana', serif;
+            font-size: 6.5em;
+            font-weight: 400;
+            letter-spacing: 15px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FFE5E5 0%, #DC143C 50%, #8B0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(220, 20, 60, 0.5);
+            animation: textGlow 3s ease-in-out infinite;
+            line-height: 1.2;
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { 
+                filter: brightness(1) drop-shadow(0 0 20px rgba(220, 20, 60, 0.3));
+            }
+            50% { 
+                filter: brightness(1.3) drop-shadow(0 0 40px rgba(220, 20, 60, 0.6));
+            }
+        }
+        
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            letter-spacing: 8px;
+            color: #CD5C5C;
+            font-style: italic;
+            margin-bottom: 50px;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            color: var(--crimson);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.5));
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -20px); }
+        }
+        
+        /* Profile Section */
+        .profile-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 40px;
+            position: relative;
+        }
+        
+        .profile-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(139, 0, 0, 0.1) 0%, 
+                transparent 50%, 
+                rgba(220, 20, 60, 0.1) 100%);
+            pointer-events: none;
+        }
+        
+        .profile-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 100px;
+            align-items: center;
+            position: relative;
+        }
+        
+        .profile-image-wrapper {
+            position: relative;
+        }
+        
+        .image-frame {
+            position: relative;
+            width: 420px;
+            height: 420px;
+            margin: 0 auto;
+        }
+        
+        .image-frame::before {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            border: 3px solid var(--crimson);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+            opacity: 0.4;
+        }
+        
+        .image-frame::after {
+            content: '';
+            position: absolute;
+            inset: -30px;
+            border: 1px solid var(--wine);
+            border-radius: 50%;
+            animation: rotate 25s linear infinite reverse;
+            opacity: 0.3;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cherry-red), var(--crimson), var(--wine));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 60px rgba(220, 20, 60, 0.4),
+                inset 0 0 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: imageFloat 5s ease-in-out infinite;
+        }
+        
+        @keyframes imageFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+        
+        .profile-image span {
+            font-size: 12em;
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.7));
+        }
+        
+        .profile-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: var(--crimson);
+            margin-bottom: 40px;
+            letter-spacing: 6px;
+            font-weight: 700;
+        }
+        
+        .profile-text p {
+            font-size: 1.5em;
+            line-height: 2;
+            color: var(--cream);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .quote-box {
+            background: rgba(139, 0, 0, 0.2);
+            border-left: 5px solid var(--crimson);
+            padding: 40px;
+            border-radius: 10px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 6em;
+            color: var(--crimson);
+            opacity: 0.3;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .quote-box p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            font-style: italic;
+            color: #FFB6C1;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Hobbies Section */
+        .hobbies-section {
+            padding: 120px 40px;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Italiana', serif;
+            font-size: 5em;
+            letter-spacing: 10px;
+            background: linear-gradient(135deg, #FFE5E5, var(--crimson));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .section-divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+            margin: 0 auto;
+        }
+        
+        .hobbies-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+        }
+        
+        .hobby-card {
+            background: rgba(13, 2, 8, 0.7);
+            border: 2px solid rgba(220, 20, 60, 0.3);
+            border-radius: 30px;
+            padding: 60px 45px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hobby-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+        
+        .hobby-card:hover::before {
+            opacity: 1;
+            animation: rotateGlow 4s linear infinite;
+        }
+        
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hobby-card:hover {
+            transform: translateY(-20px);
+            border-color: var(--crimson);
+            box-shadow: 
+                0 30px 80px rgba(220, 20, 60, 0.4),
+                0 0 60px rgba(220, 20, 60, 0.2);
+        }
+        
+        .hobby-icon {
+            font-size: 5.5em;
+            margin-bottom: 30px;
+            display: inline-block;
+            filter: drop-shadow(0 10px 30px rgba(220, 20, 60, 0.5));
+            transition: all 0.6s;
+        }
+        
+        .hobby-card:hover .hobby-icon {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 15px 40px rgba(220, 20, 60, 0.8));
+        }
+        
+        .hobby-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--crimson);
+            margin-bottom: 25px;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .hobby-card p {
+            font-size: 1.4em;
+            line-height: 1.9;
+            color: rgba(244, 232, 232, 0.9);
+        }
+        
+        /* Music card special */
+        .music-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, 
+                rgba(139, 0, 0, 0.3) 0%, 
+                rgba(114, 47, 55, 0.2) 50%,
+                rgba(220, 20, 60, 0.2) 100%);
+            border: 2px solid rgba(220, 20, 60, 0.5);
+        }
+        
+        .music-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .artists-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 45px;
+        }
+        
+        .artist-badge {
+            background: linear-gradient(135deg, var(--cherry-red), var(--crimson));
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 600;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .artist-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .artist-badge:hover::before {
+            left: 100%;
+        }
+        
+        .artist-badge:hover {
+            transform: scale(1.15) rotate(-3deg);
+            box-shadow: 0 15px 50px rgba(220, 20, 60, 0.7);
+            background: linear-gradient(135deg, var(--crimson), #FF1493);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 80px 40px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(220, 20, 60, 0.2);
+            margin-top: 100px;
+            position: relative;
+        }
+        
+        footer p {
+            font-size: 1.4em;
+            color: var(--wine);
+            margin-bottom: 15px;
+        }
+        
+        .heart-icon {
+            display: inline-block;
+            color: var(--crimson);
+            animation: heartBeat 1.5s ease-in-out infinite;
+            font-size: 1.3em;
+            margin: 0 5px;
+        }
+        
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+            
+            .image-frame {
+                width: 350px;
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5em;
+                letter-spacing: 8px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2em;
+                letter-spacing: 4px;
+            }
+            
+            .cherry-icon-large {
+                font-size: 4em;
+            }
+            
+            .profile-text h2 {
+                font-size: 2.5em;
+            }
+            
+            .section-header h2 {
+                font-size: 3em;
+            }
+            
+            .hobbies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-frame {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .profile-image span {
+                font-size: 8em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5em;
+                letter-spacing: 4px;
+            }
+            
+            .hobby-card {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="atmosphere"></div>
+    
+    <div class="content-wrapper">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="cherry-icon-large">🍒</div>
+                <h1>LIZBETH<br>INZUNZA</h1>
+                <p class="hero-subtitle">Software Engineering</p>
+            </div>
+            <div class="scroll-down">↓</div>
+        </section>
+        
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <div class="profile-container">
+                <div class="profile-image-wrapper">
+                    <div class="image-frame">
+                        <div class="profile-image">
+                            <span>🖤</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-text">
+                    <h2>¿QUIÉN SOY?</h2>
+                    <p>¡Hola! Soy Lizbeth Joseline Inzunza Pereyra, tengo 21 años y soy estudiante de Ingeniería en Software. Me considero una persona creativa, curiosa y apasionada por aprender cosas nuevas. Me gusta desarrollar ideas, explorar distintos intereses y combinar la tecnología con mi lado personal.</p>
+                    <div class="quote-box">
+                        <p>El futuro se construye con cada pequeño paso que damos hoy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Hobbies Section -->
+        <section class="hobbies-section">
+            <div class="section-header">
+                <h2>PASATIEMPOS</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="hobbies-grid">
+                <div class="hobby-card">
+                    <div class="hobby-icon">🎬</div>
+                    <h3>Terror</h3>
+                    <p>Me encanta el cine, especialmente las películas y series de terror. Disfruto analizar las historias, los giros inesperados y la tensión que generan. Este género me atrapa porque logra mezclar emoción, suspenso y creatividad.</p>
+                </div>
+                
+                <div class="hobby-card">
+                    <div class="hobby-icon">📚</div>
+                    <h3>Lectura</h3>
+                    <p>Me gusta mucho leer, sobre todo géneros de fantasía y libros con estética dark academia. Disfruto perderme en mundos imaginarios, conocer personajes complejos y reflexionar sobre las ideas que transmiten. La lectura me inspira, me motiva y siempre me ofrece nuevas perspectivas.</p>
+                </div>
+                
+                <div class="hobby-card music-card">
+                    <div class="music-content">
+                        <div class="hobby-icon">🎵</div>
+                        <h3>Música</h3>
+                        <p>La música es parte esencial de mi día a día. Escucho diferentes géneros y artistas, pero mis favoritos son Lana del Rey, The Weeknd, The Neighbourhood, Arctic Monkeys y Sombr. Para mí, la música es inspiración, compañía y una forma de expresión.</p>
+                        <div class="artists-container">
+                            <span class="artist-badge">Lana del Rey</span>
+                            <span class="artist-badge">The Weeknd</span>
+                            <span class="artist-badge">The Neighbourhood</span>
+                            <span class="artist-badge">Arctic Monkeys</span>
+                            <span class="artist-badge">Sombr</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <p>Hecho con <span class="heart-icon">♥</span> por Lizbeth Inzunza</p>
+            <p>© 2025 · Cherry Dreams</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Crear pétalos de cereza
+        function createCherryPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'cherry-petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            petal.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(petal);
+            
+            setTimeout(() => {
+                petal.remove();
+            }, 15000);
+        }
+        
+        // Generar pétalos constantemente
+        setInterval(createCherryPetal, 500);
+        
+        // Iniciar con algunos pétalos
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createCherryPetal, i * 200);
+        }
+        
+        // Smooth scroll para el botón de scroll
+        document.querySelector('.scroll-down')?.addEventListener('click', () => {
+            document.querySelector('.profile-section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+        
+        // Parallax effect en scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const atmosphere = document.querySelector('.atmosphere');
+            if (atmosphere) {
+                atmosphere.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+        
+        // Animación de entrada para las tarjetas
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.hobby-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.8s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
