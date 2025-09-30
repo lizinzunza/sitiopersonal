@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lizbeth Inzunza</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700;900&display=swap');
         
@@ -307,11 +306,20 @@
                 inset 0 0 40px rgba(0, 0, 0, 0.3);
             position: relative;
             animation: imageFloat 5s ease-in-out infinite;
+            overflow: hidden;
         }
         
         @keyframes imageFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-25px); }
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.7));
         }
         
         .profile-image span {
@@ -647,7 +655,7 @@
                 <div class="profile-image-wrapper">
                     <div class="image-frame">
                         <div class="profile-image">
-                            <span>🖤</span>
+                            <img src="iooooo.jpeg" alt="Lizbeth Inzunza">
                         </div>
                     </div>
                 </div>
@@ -702,7 +710,7 @@
         <!-- Footer -->
         <footer>
             <p>Hecho con <span class="heart-icon">♥</span> por Lizbeth Inzunza</p>
-            <p>© 2025 · Cherry Dreams</p>
+            <p>© 2025</p>
         </footer>
     </div>
     
